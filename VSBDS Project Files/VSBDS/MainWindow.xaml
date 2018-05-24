@@ -1,0 +1,50 @@
+﻿<Window x:Class="VSBDS.MainWindow"
+        Icon="icon.ico"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VSBDS"
+        mc:Ignorable="d"
+        Title="VSDBS" Height="720" Width="1024">
+
+    <Window.Resources>
+        <DataTemplate x:Key="ItemTemplate">
+            <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Height="100" Width ="235" Stretch="Uniform" Source="{Binding}" HorizontalAlignment="Center"/>
+                <!--TextBlock Text="{Binding}"/-->
+            </WrapPanel>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <MediaElement LoadedBehavior="Manual" Name="mePlayer" Width="400"/>
+        <StackPanel Grid.Row="1">
+            <Label Name="lblStatus" Content="Not playing..." HorizontalContentAlignment="Center" Margin="2" />
+            <Label Name="videoLabel" Content="Choose Clip" HorizontalContentAlignment="Center" Margin="2" />
+            <WrapPanel HorizontalAlignment="Center" Margin="2">
+                <Button Name="btnPlay" Click="btnPlay_Click">Play</Button>
+                <Button Name="btnPause" Margin="5,0" Click="btnPause_Click">Pause</Button>
+                <Button Name="btnStop" Click="btnStop_Click">Stop</Button>
+            </WrapPanel>
+            <WrapPanel HorizontalAlignment="Center" Margin="2">
+                <Button Name="btnOrig" Click="btnOrig_Click">Original Video</Button>
+            </WrapPanel>
+            <ListView
+                x:Name="VideoListView"
+                ItemTemplate="{StaticResource ItemTemplate}"
+                SelectionChanged="VideoListView_SelectionChanged"
+                ItemsSource="{Binding img_list}" Height="397" Margin="0,0,0,0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="5" Width="960" Height="300"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>
